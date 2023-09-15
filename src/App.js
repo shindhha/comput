@@ -80,52 +80,38 @@ function NavBarLink(props) {
   );
 }
 
+function Section({children,title,background}) {
+  const classes = `gap-3 ${background} container-fluid p-5`;
+  return (
+    <div className={classes}>
+        <div class="p-3">
+          <h1 class="text-white">{title}</h1>
+        </div>
+        <div class= "gap-4 row justify-content-center">
+          {children}
+        </div>
+        
+      </div>
+  );
+}
+
 function App() {
   return (
     <div className="App">
       <NavBar/>
-      <div class="  gap-3 bg-custom-dark container-fluid p-5">
-        <div class="p-3">
-          <h1 class="text-white">COMMUNITY</h1>
-        </div>
-        <div class= "gap-4 row justify-content-center">
+      <Section title="COMMUNITY" background="bg-custom-dark">
           <Thumbnails header="MONTHLY PLAYERS" text="1,701"/>
           <Thumbnails header="TOTAL PLAYERS" text="55,077"/>
           <Thumbnails header="REGISTERED USERS" text="98"/>
-        </div>
-        
-      </div>
-      <div class="  gap-3 bg-custom-grey container-fluid p-5">
-        <div class="p-3">
-          <h1 class="text-white">FEATURES</h1>
-        </div>
-        <div class= "gap-4 row justify-content-center">
+      </Section>
+      <Section title="FEATURES" background="bg-custom-grey">
           <Thumbnails header="Support 24/7" text="Nous fournissons une assistance 24 heures sur 24, 7 jours sur 7 et 365 jours par an à tous nos utilisateurs."/>
           <Thumbnails header="99,9% Uptime" text="Nous disposons de l'infrastructure nécessaire pour pouvoir offrir un service actif 24h / 24."/>
           <Thumbnails header="Anti-DDoS" text="Nous avons actuellement un firewall pour contrer les attaques ddos."/>
-        </div>
-        
-      </div>
-      
-
+      </Section>
     </div>
   );
 }
 
 export default App;
 
-
-const scrollElement = document.getElementById('scrollElement');
-const container = document.querySelector('.container');
-
-let animationStarted = false;
-
-window.addEventListener('scroll', () => {
-    const elementBottom = container.getBoundingClientRect().bottom;
-    const windowHeight = window.innerHeight;
-
-    if (!animationStarted && elementBottom <= windowHeight) {
-        scrollElement.classList.add('animate-slide-up');
-        animationStarted = true;
-    }
-});
