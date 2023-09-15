@@ -1,0 +1,39 @@
+.bg-grey {
+
+    background-color: #070707;
+}
+
+.bg-custom-dark {
+    background-color: #141414;
+}
+
+.bg-custom-grey {
+    background-color: #222;
+}
+.thumbnail-img {
+    height: 100px;
+    width: 100px;
+}
+
+.thumbnail-text {
+    font-size: 10px;
+}
+
+.thumbnail:hover {
+    transition-duration: 0.1s;
+    transform: scale(1.05,1.05);
+}
+
+
+.element {
+    animation: slideUp 0.5s ease-in-out 1;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(-100vh);
+    }
+    100% {
+        transform: translateY(0); /* Déplacez l'élément vers le haut de la hauteur de l'affichage */
+    }
+}
