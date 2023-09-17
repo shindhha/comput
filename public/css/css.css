@@ -16,24 +16,46 @@
 }
 
 .thumbnail-text {
+    
     font-size: 10px;
 }
 
+.navbar-icon {
+    height: 35px;
+    width: 35px;
+}
+
 .thumbnail:hover {
-    transition-duration: 0.1s;
+    transition: 0.3s;
     transform: scale(1.05,1.05);
 }
+
 
 
 .element {
     animation: slideUp 0.5s ease-in-out 1;
 }
 
-@keyframes slideUp {
-    0% {
-        transform: translateY(-100vh);
-    }
-    100% {
-        transform: translateY(0); /* Déplacez l'élément vers le haut de la hauteur de l'affichage */
-    }
+
+.fade-in-element {
+    transition-delay: 0.5s;
+    transition: 0.7s;
+    opacity: 0;
+}
+.fade-in-element.is-visible {
+    opacity: 1;
+    transform: translateY(0px) translateZ(0);
+}
+
+.from-bottom {
+    transform: translateY(70px)  translateZ(0);
+}
+
+.from-top {
+    transform: translateY(-200px)  translateZ(0);
+}
+
+
+body {
+    background-color: #222;
 }
