@@ -53,8 +53,6 @@ function computeGeometry() {
       k ++
     }
   }
-  geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) )
-	geometry.setAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) )
 	geometry.computeBoundingBox()
   return geometry
 }

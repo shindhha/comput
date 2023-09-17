@@ -8,25 +8,88 @@ import fadeIn from './animations/FadeIn';
 
 const canvas  = document.getElementById('canvas')
 
-
-let t = 0
-
 const scene = new THREE.Scene()
 
-const camera = new THREE.PerspectiveCamera(100)
+const camera = new THREE.PerspectiveCamera(70, 2000 / 2000)
+const cubeGeometry = new THREE.BoxGeometry(1,1,1)
+const cubeMaterial = new THREE.MeshBasicMaterial({color: 0x049EF4})
+const cubeMesh = new THREE.Mesh(cubeGeometry,cubeMaterial)
+const geometry = computeGeometry()
+const material = new THREE.PointsMaterial( { size: 0.02, vertexColors: true } )
+const mesh = new THREE.Points( geometry, material )
+cubeMesh.position.y = 1.5
+scene.add( mesh, cubeMesh)
+camera.position.set(0, 2, -5)
+camera.lookAt(0, -0.1, 0)
 
-const renderer  = new THREE.WebGL1Renderer({canvas, antialias: true})
-
+const renderer = new THREE.WebGLRenderer({ canvas })
 renderer.setPixelRatio(window.devicePixelRatio * 3);
+const clock = new THREE.Clock()
+let t = 0
 
-const geometry = new THREE.BoxGeometry(1,1,1)
-const material = new THREE.MeshBasicMaterial({color: 0x049EF4})
-const mesh = new THREE.Mesh(geometry,material)
-scene.add(mesh)
-scene.background = new THREE.Color(0x070707)
-camera.position.set(0,0,3)
-renderer.render(scene,camera)
+loop()
 
+
+function loop() {
+  t += clock.getDelta()
+  animeGeometry(geometry, t)
+  mesh.rotation.y = 0.1*t
+  renderer.render(scene, camera)
+  requestAnimationFrame(loop)
+}
+
+function computeGeometry() {
+  const space = 8, nb = 100, amp = 0.1, fre = 1, pi2= Math.PI*3
+
+  const geometry = new THREE.BufferGeometry()
+
+  const positions = new Float32Array( nb * nb * 3 )
+	const colors = new Float32Array( nb * nb * 3 )
+
+  let k = 0
+  for ( let i = 0; i < nb; i ++ ) {
+    for ( let j = 0; j < nb; j ++ ) {
+      const x = i*(space/nb)-space/2
+      const z = j*(space/nb)-space/2
+      const y = amp * ( Math.cos(x*pi2*fre) + Math.sin(z*pi2*fre) )
+      positions[ 3 * k + 0 ] = x
+      positions[ 3 * k + 1 ] = y
+      positions[ 3 * k + 2 ] = z
+      const intensity =( y/amp)/2+0.3
+      colors[ 3 * k + 0] = 0
+      colors[ 3 * k + 1 ] = 1
+      colors[ 3 * k + 2 ] = 0
+      k ++
+    }
+  }
+  geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) )
+	geometry.setAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) )
+	geometry.computeBoundingBox()
+  return geometry
+}
+
+
+
+function animeGeometry(geometry, progress) {
+  const space = 4, nb = 100, amp = 0.35, pi2= Math.PI*2
+  const phase = progress
+  const fre = 0.8 + Math.cos(progress)/2
+
+  let k = 0
+  for ( let i = 0; i < nb; i ++ ) {
+    for ( let j = 0; j < nb; j ++ ) {
+      const x = i*(space/nb)-space/2
+      const z = j*(space/nb)-space/2
+      const y = amp * ( Math.cos(x*pi2*fre+phase) + Math.sin(z*pi2*fre+phase) )
+      geometry.attributes.position.setY(k, y)
+      const intensity =( y/amp)/2+0.3
+      geometry.attributes.color.setY(k, j/nb * intensity)
+      k ++
+    }
+  }
+  geometry.attributes.position.needsUpdate = true
+  geometry.attributes.color.needsUpdate = true 
+} 
 
 
 
@@ -58,8 +121,8 @@ function mouseMouve(event) {
     } else if (svgY < onclickY) {
       if (svgY < newMy) onclickY = newMy;
     }
-    mesh.rotation.y += (newMX - onclickX) / 2000;
-    mesh.rotation.x += (newMy -  onclickY) / 2000;
+    cubeMesh.rotation.y += (newMX - onclickX) / 2000;
+    cubeMesh.rotation.x += (newMy -  onclickY) / 2000;
     svgX = newMX;
     svgY = newMy;
     console.log("Svg : " + svgX + " new : " + newMX  + " click : " + onclickX)
@@ -75,13 +138,11 @@ canvas.addEventListener('mousedown', (event) => {
 })
 
 
-
-
-
 function App() {
   return (
     <div className="App bg-custom-grey">
       <NavBar/>
+      
       dsqds
       
       
