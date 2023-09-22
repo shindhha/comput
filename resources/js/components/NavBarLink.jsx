@@ -8,4 +8,4 @@ function NavBarLink(props) {
     );
   }
 
-  export default NavBarLink
+export default NavBarLink

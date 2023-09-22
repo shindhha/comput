@@ -16,9 +16,7 @@
         @vite('resources/js/app.jsx')
     </head>
     <body class="antialiased">
-    <canvas id="canvas" class="container-fluid d-flex justify-content-center bg-custom-dark p-0">
 
-    </canvas>
         <div id="root"></div>
         <script src="{{ asset('js/app.jsx') }}"></script>
 
