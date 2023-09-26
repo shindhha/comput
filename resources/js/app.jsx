@@ -24,16 +24,21 @@ import CustomCanvas from './components/CustomCanvas'
 import Box from './components/Box'
 import Waves from './animations/Waves'
 import {Canvas} from '@react-three/fiber'
-import { PerspectiveCamera } from 'three';
+import { PerspectiveCamera } from '@react-three/drei';
+import Particles from './animations/Test'
 function App() {
   return (
     <div className="App bg-custom-grey">
 
       <NavBar/>
-      <Canvas camera={ {position: [2, 2.5, -5]} }>
-        <Box/>
-        <Waves/>
-      </Canvas>
+      <div>
+        <Canvas >
+          <PerspectiveCamera makeDefault position={[0,0.5,2]} lookAt={[0,5,0]}/>
+          <Box position={[0,0,-5]}/>
+          <Waves/>
+        </Canvas>
+
+      </div>
       <SectionFadeIn title="COMMUNITY" css_element="bg-custom-dark">
           <Thumbnails header="VR">
             Téléportez-vous et explorez en toute liberté de nouveaux mondes virtuels, que ce soit en jouant, en développant des applications/jeux/... ou bien en regardant des vidéos.
