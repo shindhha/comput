@@ -25,7 +25,6 @@ import Box from './components/Box'
 import Waves from './animations/Waves'
 import {Canvas} from '@react-three/fiber'
 import { PerspectiveCamera } from '@react-three/drei';
-import Particles from './animations/Test'
 function App() {
   return (
     <div className="App bg-custom-grey">

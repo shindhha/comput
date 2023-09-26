@@ -2,35 +2,11 @@ import * as THREE from 'three'
 import {Points } from '@react-three/drei'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { useRef } from 'react'
-function Waves(props) {
-    let t = 0
-    const clock = new THREE.Clock()
 
-    const space = 8, nb = 100, amp = 0.1, fre = 1, pi2= Math.PI*3
-    const geometry = new THREE.BufferGeometry()
-    const positions = new Float32Array( nb * nb * 3 )
-    const colors = new Float32Array( nb * nb * 3 )
+
+function Waves(props) {
     
 
-
-    let k = 0
-    for ( let i = 0; i < nb; i ++ ) {
-        for ( let j = 0; j < nb; j ++ ) {
-        const x = i*(space/nb)-space/2
-        const z = j*(space/nb)-space/2
-        const y = amp * ( Math.cos(x*pi2*fre) + Math.sin(z*pi2*fre) )
-        positions[ 3 * k + 0 ] = x
-        positions[ 3 * k + 1 ] = y
-        positions[ 3 * k + 2 ] = z
-        const intensity =( y/amp)/2+0.3
-        colors[ 3* k + 0]= j/nb *intensity
-        colors[ 3* k + 1]= 0
-        colors[ 3* k + 2]= i/nb *intensity
-        
-        k ++
-        }
-    }
-    geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) )
     const ref = useRef(null)
     useFrame(() => {
         if (!ref.current) {
@@ -61,6 +37,31 @@ function Waves(props) {
     )
 }
 
+let t = 0
+let k = 0
+
+const clock = new THREE.Clock()
+const space = 8, nb = 100, amp = 0.1, fre = 1, pi2= Math.PI*3
+const positions = new Float32Array( nb * nb * 3 )
+const colors = new Float32Array( nb * nb * 3 )
+
+for ( let i = 0; i < nb; i ++ ) {
+    for ( let j = 0; j < nb; j ++ ) {
+    const x = i*(space/nb)-space/2
+    const z = j*(space/nb)-space/2
+    const y = amp * ( Math.cos(x*pi2*fre) + Math.sin(z*pi2*fre) )
+    positions[ 3 * k + 0 ] = x
+    positions[ 3 * k + 1 ] = y
+    positions[ 3 * k + 2 ] = z
+    const intensity =( y/amp)/2+0.3
+    colors[ 3* k + 0]= 0
+    colors[ 3* k + 1]= 1
+    colors[ 3* k + 2]= 0
+    
+    k ++
+    }
+}
+
 function animeGeometry(geometry, progress) {
     const space = 4, nb = 100, amp = 0.1, pi2= Math.PI*2
     const phase = progress
@@ -76,6 +77,7 @@ function animeGeometry(geometry, progress) {
             const intensity =( y/amp)/2+0.3
             geometry.attributes.color.setY(k, i/nb * intensity)
             geometry.attributes.color.setZ(k, j/nb * intensity)
+
             k ++
         }
     }
