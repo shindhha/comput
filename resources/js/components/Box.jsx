@@ -11,6 +11,7 @@ function Box(props) {
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
+  const [color, setColor] = useState(0xffffff);
   // Subscribe this component to the render-loop, rotate the mesh every frame
   
   // Return view, these are regular three.js elements expressed in JSX
@@ -25,8 +26,8 @@ function Box(props) {
             const mouseMove = (event) => {
             const deltaX = event.clientX - onclickX;
             const deltaY = event.clientY - onclickY;
-            meshRef.current.rotation.x += deltaY * 0.01;
-            meshRef.current.rotation.y += deltaX * 0.01;
+            meshRef.current.rotation.x -= deltaY * 0.005;
+            meshRef.current.rotation.y += deltaX * 0.005;
             onclickX = event.clientX;
             onclickY = event.clientY;
         };
@@ -41,8 +42,8 @@ function Box(props) {
 
         window.addEventListener('pointerup', pointerUp);
       }}>
-      <boxGeometry args={[3, 3, 3]}/>
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
+      <boxGeometry args={[1, 1, 1]}/>
+      <meshBasicMaterial color={0x049EF4} />
     </mesh>
   )
 }

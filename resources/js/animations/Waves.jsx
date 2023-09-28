@@ -6,17 +6,18 @@ import { useRef } from 'react'
 
 function Waves(props) {
     
-
+    const points = useRef(null)
     const ref = useRef(null)
     useFrame(() => {
         if (!ref.current) {
             return
         }
         t += clock.getDelta()
+        points.current.rotation.y = 0.1*t
         animeGeometry(ref.current,t)
     })
     return (
-        <points >
+        <points ref={points}>
             <bufferGeometry attach="geometry" ref={ref}>
                 <bufferAttribute 
                  attach='attributes-position'
@@ -54,16 +55,15 @@ for ( let i = 0; i < nb; i ++ ) {
     positions[ 3 * k + 1 ] = y
     positions[ 3 * k + 2 ] = z
     const intensity =( y/amp)/2+0.3
-    colors[ 3* k + 0]= 0
-    colors[ 3* k + 1]= 1
-    colors[ 3* k + 2]= 0
+    colors[ 3 * k + 0] = 0
+      colors[ 3 * k + 1 ] = 1
+      colors[ 3 * k + 2 ] = 0
     
     k ++
     }
 }
-
 function animeGeometry(geometry, progress) {
-    const space = 4, nb = 100, amp = 0.1, pi2= Math.PI*2
+    const space = 4, nb = 100, amp = 0.2, pi2= Math.PI
     const phase = progress
     const fre = 0.8 + Math.cos(progress)/2
 
@@ -76,8 +76,6 @@ function animeGeometry(geometry, progress) {
             geometry.attributes.position.setY(k, y)
             const intensity =( y/amp)/2+0.3
             geometry.attributes.color.setY(k, i/nb * intensity)
-            geometry.attributes.color.setZ(k, j/nb * intensity)
-
             k ++
         }
     }
