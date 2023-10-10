@@ -23,9 +23,10 @@ import fadeIn from './animations/FadeIn';
 import Box from './components/Box'
 import Waves from './animations/Waves'
 import {Canvas} from '@react-three/fiber'
-
+import Saber from './components/Saber';
+import {OrbitControls} from '@react-three/drei'
 const canvas = document.getElementById('canvas');
-
+const rightOrLeft = false;
 
 
 function App() {
@@ -35,9 +36,11 @@ function App() {
     
       <div className="App bg-custom-grey">
       <NavBar className='bg-custom-grey'/>
-      <Canvas className='container-fluid d-flex justify-content-center bg-custom-dark p-0 vh-100 '  camera={{position:[0,1,-3]}} >
-        <Waves />
-        <Box position={[0,1,0]}/>
+      <Canvas id='canvas' className='container-fluid d-flex justify-content-center bg-custom-dark p-0 vh-100 '  camera={{position:[0,1,-3]}} >
+        <OrbitControls/>
+        <Box position={[1,0,10]}  test={rightOrLeft}/>
+        <Saber  position={[1,0,3]} test={rightOrLeft}/>
+        <gridHelper args={[20, 20, 0xff0000, 'teal']}/>
       </Canvas>
         
           

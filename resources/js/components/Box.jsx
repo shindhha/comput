@@ -1,49 +1,37 @@
+import * as THREE from 'three'
 import { createRoot } from 'react-dom/client'
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-var onclickX;
-var onclickY;
-var svgX = 0;
-var svgY = 0;
-function Box(props) {
+import { saberCoord } from './Saber'
+
+
+let t = 0;
+const clock = new THREE.Clock()
+function Box({test,...props}) {
+  let cube1BB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3())
+
+  t += clock.getDelta()
   // This reference will give us direct access to the mesh
   const meshRef = useRef()
   // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
-  const [color, setColor] = useState(0xffffff);
+
   // Subscribe this component to the render-loop, rotate the mesh every frame
-  
+  useFrame(() => {
+    meshRef.current.position.z -= 0.01 ;
+    cube1BB.setFromObject(meshRef.current);
+    if (saberCoord.intersectsBox(cube1BB)) {
+      meshRef.current.position.z = 10;
+      meshRef.current.position.x *= -1;
+      test = !test;
+    }
+  })
   // Return view, these are regular three.js elements expressed in JSX
   return (
     <mesh
         {...props}
-        ref={meshRef}
-        scale={active ? 1.5 : 1}
-        onPointerDown={(event) => {
-            var onclickX = event.clientX;
-            var onclickY = event.clientY;
-            const mouseMove = (event) => {
-            const deltaX = event.clientX - onclickX;
-            const deltaY = event.clientY - onclickY;
-            meshRef.current.rotation.x -= deltaY * 0.005;
-            meshRef.current.rotation.y += deltaX * 0.005;
-            onclickX = event.clientX;
-            onclickY = event.clientY;
-        };
-
-        window.addEventListener('mousemove', mouseMove);
-
-        const pointerUp = () => {
-            window.removeEventListener('mousemove', mouseMove);
-
-            window.removeEventListener('pointerup', pointerUp);
-        };
-
-        window.addEventListener('pointerup', pointerUp);
-      }}>
-      <boxGeometry args={[1, 1, 1]}/>
-      <meshBasicMaterial color={0x049EF4} />
+        ref={meshRef}>
+      <boxGeometry args={[0.75, 0.75, 0.75]}/>
+      <meshBasicMaterial color={0xFFFF00} />
     </mesh>
   )
 }
