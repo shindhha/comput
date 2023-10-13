@@ -16,6 +16,7 @@ export function Saber({position,test}) {
         document.addEventListener('keypress', (event) => {
             if (event.key == 'e') {
                 if (doAnimation) {
+
                     ref.current.position.y = 0
                     ref.current.rotation.x = 0
                 } else {
@@ -23,11 +24,10 @@ export function Saber({position,test}) {
                 }
                 
             }
-            if (event.code == 37) {
-                console.log('left')
+            if (event.key == 'd') {
                 ref.current.position.x = -1
             }
-            if (event.code == 39) {
+            if (event.key == 'q') {
                 ref.current.position.x = 1
             }
 
