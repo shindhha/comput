@@ -17,22 +17,24 @@ function Box({test,...props}) {
   let [cube, cube2] = [null,null];
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame(() => {
-    meshRef.current.position.z -= 0.05 ;
+    meshRef.current.position.z -= 0.01 ;
     cube1BB.setFromObject(meshRef.current);
-    if (saberCoord.intersectsBox(cube1BB)) {
+    if (saberCoord.intersectsBox(cube1BB) && !test) {
+      scene.remove(meshRef.current)
+
       test = !test;
-      
       [cube , cube2] = cutCube(meshRef.current)
       scene.add( cube );
       scene.add( cube2 );
-      scene.remove(meshRef.current)
-      
+      console.log(cube.position);
     }
 
-    if(cube != null && cube2 != null) {
-      animateHalf(cube,1)
-      animateHalf(cube2,-1)
+    if (meshRef.current.position.z < -5) {
+      meshRef.current.position.z = 10
     }
+
+    animateHalf(scene,cube,1)
+    animateHalf(scene,cube2,-1)
       
   })
   // Return view, these are regular three.js elements expressed in JSX
@@ -58,8 +60,15 @@ function cutCube(cubeMesh) {
   return [cube,cube2]
 }
 
-function animateHalf(halfCubeMesh,direction) {
-    halfCubeMesh.position.x += 0.05 * direction;
+function animateHalf(scene,halfCubeMesh,direction) {
+  if (halfCubeMesh == null) return;
+  halfCubeMesh.position.x += 0.05 * direction;
+  halfCubeMesh.rotation.z += 0.05 * (direction *-1);
+  if (halfCubeMesh.position.x > 5 || halfCubeMesh.position.x < -5) {
+    halfCubeMesh.geometry.dispose()
+    halfCubeMesh.material.dispose()
+    scene.remove(halfCubeMesh)
+  }
 
 }
 

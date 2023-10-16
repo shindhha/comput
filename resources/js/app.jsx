@@ -25,11 +25,32 @@ import Waves from './animations/Waves'
 import {Canvas} from '@react-three/fiber'
 import Saber from './components/Saber';
 import {OrbitControls} from '@react-three/drei'
+import { useState,useEffect } from 'react';
 const canvas = document.getElementById('canvas');
 const rightOrLeft = false;
 
 
 function App() {
+
+  const [boxes, setBoxes] = useState([]);
+
+  useEffect(() => {
+    
+    const maxBoxes = 5; // Nombre total de boîtes à ajouter
+
+    const addBox = (index) => {
+      const delay = Math.random() * 10000; // Délai entre chaque boîte (en millisecondes)
+      let alea = Math.random()
+      if (index < maxBoxes) {
+        setTimeout(() => {
+          setBoxes((prevBoxes) => [...prevBoxes, <Box key={index} position={[alea < 0.5 ? 1 : -1, 0, 10]} />]);
+          addBox(index + 1);
+        }, delay);
+      }
+    };
+
+    addBox(0);
+  }, []);
   return (
     <React.Fragment>
       
@@ -38,8 +59,8 @@ function App() {
       <NavBar className='bg-custom-grey'/>
       <Canvas id='canvas' className='container-fluid d-flex justify-content-center bg-custom-dark p-0 vh-100 '  camera={{position:[0,1,-3]}} >
         <OrbitControls/>
-        <Box position={[1,0,10]}  test={rightOrLeft}/>
-        <Saber  position={[1,0,3]} test={rightOrLeft}/>
+        {boxes}
+        <Saber  position={[1,0,3]} />
         <gridHelper args={[20, 20, 0xff0000, 'teal']}/>
       </Canvas>
         
