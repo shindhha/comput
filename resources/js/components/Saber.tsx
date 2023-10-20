@@ -1,15 +1,20 @@
 import * as THREE from 'three'
 import React, { useRef, useState } from 'react'
-import {OrbitControls} from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useEffect } from 'react'
-export let saberCoord = ""
-export function Saber({hitBox,vitesse,position,test}) {
-    const ref = useRef()
+
+const vitesse = 10
+export function Saber({position,hitBox}) {
+    const ref = useRef<THREE.Mesh>(null)
     let doAnimation = false;
+    let cube1BB:THREE.Box3 = hitBox;
     useEffect(() => {
-        hitBox.setFromObject(ref.current);
+        if (ref.current == null || ref.current == undefined) return
+
+        cube1BB.setFromObject(ref.current);
         document.addEventListener('keypress', (event) => {
+            if (ref.current == null || ref.current == undefined) return
+
             if (event.key == 'e') {
                 if (doAnimation) {
 
@@ -31,20 +36,23 @@ export function Saber({hitBox,vitesse,position,test}) {
 
     }, [])
     useFrame(() =>  {
+        
+        if (ref.current == null || ref.current == undefined) return
+
         if (doAnimation) {
             ref.current.rotation.x += 0.013 * vitesse
             ref.current.position.y -= 0.03 * vitesse
         }
-        if (ref.current.position.y < -4) {
-            ref.current.position.y = 0
-            ref.current.rotation.x = 0
-            doAnimation = false
+        if (ref.current) {
+            if (ref.current.position.y < -4) {
+                ref.current.position.y = 0
+                ref.current.rotation.x = 0
+                doAnimation = false
+            }
+
+            cube1BB.copy(ref.current.geometry.boundingBox!).applyMatrix4(ref.current.matrixWorld);
         }
-        if (test) {
-            ref.current.position.x *= -1
-            test = !test
-        }
-        hitBox.copy(ref.current.geometry.boundingBox).applyMatrix4(ref.current.matrixWorld);
+        
     })
 
     return (

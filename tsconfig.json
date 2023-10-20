@@ -1,0 +1,23 @@
+{
+    "compilerOptions": 
+    {
+      "baseUrl": "./js",
+      "target": "ES6",
+      "module": "CommonJS",
+      "outDir": "./dist",
+      "strict": true,
+      "paths": {
+        "@react-three/drei": ["../node_modules/@react-three/drei/dist/index.es.js"]
+      }
+    },
+    "include": 
+    [
+      "src/**/*.ts", 
+      "src/**/*.tsx"
+    ],
+    "exclude": 
+    [
+      "node_modules"
+    ]
+}
+  
