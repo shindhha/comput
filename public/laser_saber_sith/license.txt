@@ -1,0 +1,11 @@
+Model Information:
+* title:	Laser Saber sith
+* source:	https://sketchfab.com/3d-models/laser-saber-sith-52791ba8eb284a8b9b36c6ca52ae201b
+* author:	Javier Martín Hidalgo (https://sketchfab.com/Jj.Mmhh)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Laser Saber sith" (https://sketchfab.com/3d-models/laser-saber-sith-52791ba8eb284a8b9b36c6ca52ae201b) by Javier Martín Hidalgo (https://sketchfab.com/Jj.Mmhh) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

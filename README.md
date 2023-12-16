@@ -68,3 +68,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Interisting link
 
 [Saber Model](https://3dmdb.com/en/3d-model/jedis-lightsaber/12639973/?q=jedi)
+[Alone Saber](https://sketchfab.com/3d-models/laser-saber-sith-52791ba8eb284a8b9b36c6ca52ae201b#download)

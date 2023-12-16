@@ -13,12 +13,12 @@ import React, { useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import NavBar from './components/NavBar';
 import {Canvas} from '@react-three/fiber'
-import Saber from './components/Saber.tsx';
+import Saber from './components/Saber.jsx';
 import {OrbitControls,Box} from '@react-three/drei'
 import * as THREE from 'three'
 import BeatSaberBoxWay from './components/BeatSaberBoxWay'
 import BeatSaberBox from './components/BeatSaberBox';
-
+import { SaberShape } from './components/SaberShape.jsx';
 
 
 
@@ -35,8 +35,8 @@ function App() {
       <Canvas id='canvas' className='container-fluid d-flex justify-content-center bg-custom-dark p-0 vh-100 '  camera={{position:[0,1,-3]}} >
         <OrbitControls/>
         <BeatSaberBoxWay saberHitBox={saberHitBox} nbBox={5}/>
-
-        <Saber  position={[1,0,3]} vitesse={10} hitBox={saberHitBox} />
+        
+        <Saber  position={[0,2.5,-5]} vitesse={10} hitBox={saberHitBox} />
         <gridHelper args={[20, 20, 0xff0000, 'teal']}/>
       </Canvas>
       </div>
