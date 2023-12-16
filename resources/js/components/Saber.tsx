@@ -2,9 +2,12 @@ import * as THREE from 'three'
 import React, { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useEffect } from 'react'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { useLoader } from '@react-three/fiber'
 
 const vitesse = 10
 export function Saber({position,hitBox}) {
+    const gltf = useLoader(GLTFLoader, '/beat_saber_ideas/scene.gltf')
     const ref = useRef<THREE.Mesh>(null)
     let doAnimation = false;
     let cube1BB:THREE.Box3 = hitBox;
@@ -61,6 +64,7 @@ export function Saber({position,hitBox}) {
             ref={ref}>
             <cylinderGeometry  args={[1, 1, 6, 12]} />
             <meshBasicMaterial color={0x049EF4}  />
+            <primitive object={gltf.scene} />
         </mesh>
         
         

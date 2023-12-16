@@ -13,11 +13,15 @@ import React, { useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import NavBar from './components/NavBar';
 import {Canvas} from '@react-three/fiber'
-import Saber from './components/Saber';
+import Saber from './components/Saber.tsx';
 import {OrbitControls,Box} from '@react-three/drei'
 import * as THREE from 'three'
 import BeatSaberBoxWay from './components/BeatSaberBoxWay'
 import BeatSaberBox from './components/BeatSaberBox';
+
+
+
+
 function App() {
   const saberHitBox = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3())
 

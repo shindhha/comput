@@ -32,7 +32,6 @@ export default function BeatSaberBox({saberHitBox,leftBox,rightBox,...props}) {
     mesh.material.opacity = 0;
     mesh.material.transparent = true;
     mesh.material.needsUpdate = true;
-    setAnimate(2)
   }
   // This reference will give us direct access to the mesh
   const meshRef = useRef()
