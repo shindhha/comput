@@ -24,6 +24,13 @@ import { SaberShape } from './components/SaberShape.jsx';
 
 function App() {
   const saberHitBox = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3())
+  const boxs = [
+    {link : "//github.com" ,image :"GitHub.webp"},
+    {link : "//google.com" ,image :"google.webp"},
+    {link : "//www.youtube.com/shorts/9qNZ7iQT1Zc" ,image :"GitHub.webp"},
+    {link : "//github.com" ,image :"GitHub.webp"},
+    {link : "//github.com" ,image :"GitHub.webp"}
+  ]
 
   
   return (
@@ -32,12 +39,10 @@ function App() {
     
       <div className="App bg-custom-grey">
       <NavBar className='bg-custom-grey'/>
-      <Canvas id='canvas' className='container-fluid d-flex justify-content-center bg-custom-dark p-0 vh-100 '  camera={{position:[0,1,-3]}} >
-        <OrbitControls/>
-        <BeatSaberBoxWay saberHitBox={saberHitBox} nbBox={5}/>
+      <Canvas id='canvas' className='container-fluid d-flex justify-content-center bg-custom-dark p-0 vh-100 '  camera={{position:[0,1,-8.5]}} >
+        <BeatSaberBoxWay saberHitBox={saberHitBox} boxs={boxs}/>
         
         <Saber  position={[0,2.5,-5]} vitesse={10} hitBox={saberHitBox} />
-        <gridHelper args={[20, 20, 0xff0000, 'teal']}/>
       </Canvas>
       </div>
      </React.Fragment>

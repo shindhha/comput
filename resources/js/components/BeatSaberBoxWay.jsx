@@ -2,7 +2,9 @@ import React, { useRef, useState ,useEffect } from 'react';
 import { Children } from 'react';
 import BeatSaberBox from './BeatSaberBox'
 import {Box} from '@react-three/drei'
-export default function BeatSaberBoxWay({nbBox, saberHitBox}) {
+import * as THREE from 'three'
+
+export default function BeatSaberBoxWay({boxs, saberHitBox}) {
     const  [children,setChildren] = useState([])
     const leftBox = useRef()
     const rightBox = useRef()
@@ -11,8 +13,10 @@ export default function BeatSaberBoxWay({nbBox, saberHitBox}) {
     useEffect(() => {
         // Random interval
         let randomInterval = Math.floor(Math.random() * 10000);
-        if (children.length >= nbBox) return;
+        if (children.length >= boxs.lenght) return;
         const interval = setInterval(() => {
+          let image = new THREE.TextureLoader().load(boxs[children.length ].image)
+          
           setChildren([
             ...children, 
             <BeatSaberBox 
@@ -21,6 +25,8 @@ export default function BeatSaberBoxWay({nbBox, saberHitBox}) {
             position={[Math.random() < 0.5 ? 1 : -1 , 0, 10]}  
             rightBox={rightBox}
             leftBox={leftBox}
+            link={boxs[children.length ]['link']}
+            image={image}
             />]);
         }, randomInterval);
     

@@ -3,9 +3,8 @@ import { createRoot } from 'react-dom/client'
 import React, { useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 
-export default function BeatSaberBox({saberHitBox,leftBox,rightBox,...props}) {
+export default function BeatSaberBox({image,link,saberHitBox,leftBox,rightBox,...props}) {
   let cube1BB = new THREE.Box3(new THREE.Vector3(), new THREE.Vector3())
-
   function animateHalf(scene,halfCubeMesh,direction,animate) {
     if (!animate) return;
     halfCubeMesh.position.x += 0.05 * direction;
@@ -43,6 +42,7 @@ export default function BeatSaberBox({saberHitBox,leftBox,rightBox,...props}) {
     meshRef.current.position.z -= 0.01 ;
     cube1BB.setFromObject(meshRef.current);
     if (saberHitBox.intersectsBox(cube1BB)) {
+      window.open(link)
       initHalf(leftBox.current,meshRef.current)
       initHalf(rightBox.current,meshRef.current)
       meshRef.current.position.z = 10
@@ -50,7 +50,7 @@ export default function BeatSaberBox({saberHitBox,leftBox,rightBox,...props}) {
       setAnimate(true)
     }
 
-    if (meshRef.current.position.z < -5) {
+    if (meshRef.current.position.z < -4) {
       meshRef.current.position.z = 10
     }
 
@@ -64,7 +64,7 @@ export default function BeatSaberBox({saberHitBox,leftBox,rightBox,...props}) {
         {...props}
         ref={meshRef}>
       <boxGeometry args={[0.75, 0.75, 0.75]}/>
-      <meshBasicMaterial color={0xFFFF00} />
+      <meshBasicMaterial  map={image}/>
     </mesh>
   )
 }

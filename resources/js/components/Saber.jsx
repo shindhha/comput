@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { useLoader } from '@react-three/fiber'
 import { SaberShape } from './SaberShape.jsx'
-const vitesse = 4
+const vitesse = 3
 export function Saber({position,hitBox}) {
     const gltf = useLoader(GLTFLoader, '/beat_saber_ideas/scene.gltf')
     const ref = useRef(null)
